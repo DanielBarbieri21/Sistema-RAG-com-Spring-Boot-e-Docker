@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: rag-system
+  
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ragdb}
+    username: ${SPRING_DATASOURCE_USERNAME:raguser}
+    password: ${SPRING_DATASOURCE_PASSWORD:ragpass123}
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:your-api-key-here}
+      base-url: https://api.openai.com/v1
+      chat:
+        options:
+          model: gpt-3.5-turbo
+          temperature: 0.3
+          max-tokens: 1000
+      embedding:
+        options:
+          model: text-embedding-3-small
+          dimensions: 1536
+    google:
+      gemini:
+        api-key: ${GEMINI_API_KEY:AIzaSyAe7q_DTmYFqpVZlDn5Macf7QWdHBvxuoQ}
+        chat:
+          options:
+            model: gemini-pro
+            temperature: 0.3
+            max-tokens: 1000
+        embedding:
+          options:
+            model: text-embedding-004
+            dimensions: 768
+
+server:
+  port: 8080
+
+# Configuração do provedor de IA
+app:
+  ai:
+    provider: ${AI_PROVIDER:gemini} # gemini ou openai
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.rag: DEBUG
+    org.springframework.ai: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
