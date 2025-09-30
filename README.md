@@ -30,7 +30,7 @@ Sistema de Retrieval-Augmented Generation (RAG) usando Spring Boot, PostgreSQL c
 
 ```bash
 # 1. Clone o repositório
-git clone <repository-url>
+git clone https://github.com/DanielBarbieri21/Sistema-RAG-com-Spring-Boot-e-Docker.git
 cd rag-system
 
 # 2. Configure as variáveis de ambiente
